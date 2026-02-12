@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #ff6b9d;
+            --deep-rose: #c9184a;
+            --blush: #ffb3c6;
+            --cream: #fff4f0;
+            --gold: #d4af37;
+            --shadow: rgba(201, 24, 74, 0.2);
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #ffe8f0 50%, #ffd4e5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: float-up 8s infinite ease-in;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 15px; }
+        .heart:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 25px; }
+        .heart:nth-child(4) { left: 60%; animation-delay: 1s; font-size: 18px; }
+        .heart:nth-child(5) { left: 75%; animation-delay: 3s; }
+        .heart:nth-child(6) { left: 85%; animation-delay: 5s; font-size: 22px; }
+        .heart:nth-child(7) { left: 15%; animation-delay: 6s; font-size: 16px; }
+        .heart:nth-child(8) { left: 50%; animation-delay: 7s; }
+
+        @keyframes float-up {
+            0% {
+                bottom: -10%;
+                opacity: 0;
+                transform: translateX(0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(30px) rotate(360deg);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 700px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 50px;
+            box-shadow: 
+                0 20px 60px var(--shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+            animation: fade-in 1s ease-out;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Decorative border */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid var(--blush);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slide-down 1s ease-out 0.2s both;
+        }
+
+        @keyframes slide-down {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--deep-rose);
+            margin-bottom: 10px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--rose);
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        /* Message section */
+        .message {
+            text-align: center;
+            margin: 40px 0;
+            animation: fade-in 1s ease-out 0.4s both;
+        }
+
+        .message p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #5a3a3a;
+            margin-bottom: 20px;
+        }
+
+        .message .highlight {
+            color: var(--deep-rose);
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        /* The big question */
+        .question {
+            text-align: center;
+            margin: 50px 0 40px;
+            animation: scale-in 1s ease-out 0.6s both;
+        }
+
+        @keyframes scale-in {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .question h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--deep-rose);
+            margin-bottom: 15px;
+        }
+
+        .question-mark {
+            font-size: 4rem;
+            color: var(--rose);
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            animation: slide-up 1s ease-out 0.8s both;
+        }
+
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            padding: 18px 50px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, var(--rose) 0%, var(--deep-rose) 100%);
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px var(--shadow);
+        }
+
+        .btn-no {
+            background: white;
+            color: var(--deep-rose);
+            border: 2px solid var(--blush);
+            position: relative;
+        }
+
+        .btn-no:hover {
+            background: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        /* Response section */
+        .response {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            min-height: 100px;
+        }
+
+        .response.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .response h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--deep-rose);
+            margin-bottom: 15px;
+        }
+
+        .response p {
+            font-size: 1.3rem;
+            color: #5a3a3a;
+            line-height: 1.8;
+        }
+
+        .celebration {
+            font-size: 3rem;
+            margin: 20px 0;
+            animation: celebration 1s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                transform: rotate(-10deg) scale(1.1);
+            }
+            75% {
+                transform: rotate(10deg) scale(1.1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .message p {
+                font-size: 1.1rem;
+            }
+
+            .question h2 {
+                font-size: 2rem;
+            }
+
+            .question-mark {
+                font-size: 3rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                padding: 15px 40px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* No button shrinking effect */
+        .btn-no.shrinking {
+            animation: shrink 0.3s ease;
+        }
+
+        @keyframes shrink {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts -->
+    <div class="hearts-container">
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💗</div>
+        <div class="heart">💓</div>
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💗</div>
+        <div class="heart">💓</div>
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+        <div class="header">
+            <h1>Valentine's Day</h1>
+        </div>
+
+        <div class="message">
+            <p class="highlight">I love you babe!</p>
+            <p>Can you now stop complaining that I haven't asked you to be my Valentine? 😄</p>
+        </div>
+
+        <div class="question">
+            <h2>Will you be my Valentine?</h2>
+            <span class="question-mark">❤️</span>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="sayYes()">Yes! 💕</button>
+            <button class="btn btn-no" onclick="sayNo()">Maybe... 😊</button>
+        </div>
+
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+
+        function sayYes() {
+            const response = document.getElementById('response');
+            response.innerHTML = `
+                <div class="celebration">🎉 💕 🎊</div>
+                <h3>Thank you!</h3>
+                <p>Love you 💖</p>
+            `;
+            response.classList.add('show');
+            
+            // Hide buttons
+            document.querySelector('.buttons').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.buttons').style.display = 'none';
+            }, 300);
+            
+            // Extra hearts celebration
+            createCelebrationHearts();
+        }
+
+        function sayNo() {
+            const noButton = document.querySelector('.btn-no');
+            noClickCount++;
+            
+            noButton.classList.add('shrinking');
+            setTimeout(() => {
+                noButton.classList.remove('shrinking');
+            }, 300);
+
+            const messages = [
+                "Are you sure? 🥺",
+                "Think about it... 💭",
+                "Please? 🙏",
+                "I promise it'll be amazing! ✨",
+                "Just give it a chance! 💖"
+            ];
+
+            if (noClickCount < messages.length) {
+                noButton.textContent = messages[noClickCount];
+            } else {
+                // After multiple clicks, just say yes!
+                sayYes();
+            }
+        }
+
+        function createCelebrationHearts() {
+            const container = document.querySelector('.hearts-container');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = ['💕', '💖', '💗', '💓', '❤️'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = (Math.random() * 2) + 's';
+                heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
